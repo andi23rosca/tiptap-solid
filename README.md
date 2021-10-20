@@ -30,7 +30,7 @@ The structure of the helper components has been designed to mimic the React comp
 ```tsx
 import { Component } from "solid-js";
 import StarterKit from "@tiptap/starter-kit";
-import { createEditor, EditorContent } from "./editor/tiptap-solid";
+import { createEditor, EditorContent } from "tiptap-solid";
 
 const App: Component = () => {
   const editor = createEditor({
@@ -47,7 +47,7 @@ const App: Component = () => {
 ```tsx
 import { NodeViewProps } from "@tiptap/core";
 import { Component } from "solid-js";
-import { NodeViewWrapper } from "./editor/tiptap-solid";
+import { NodeViewWrapper } from "tiptap-solid";
 
 const Counter: Component<NodeViewProps> = (props) => {
   const increase = () => {
@@ -77,7 +77,7 @@ export default Counter;
 
 ```ts
 import { Node, mergeAttributes } from "@tiptap/core";
-import { SolidNodeViewRenderer } from "./editor/tiptap-solid";
+import { SolidNodeViewRenderer } from "tiptap-solid";
 import Counter from "./Counter";
 
 export default Node.create({
@@ -111,8 +111,8 @@ export default Node.create({
 ```tsx
 import { Component } from "solid-js";
 import StarterKit from "@tiptap/starter-kit";
-import Extension from "./Extension";
 import { createEditor, EditorContent } from "tiptap-solid";
+import Extension from "./Extension";
 
 const App: Component = () => {
   const editor = createEditor({
