@@ -22,7 +22,7 @@ export interface SolidNodeViewRendererOptions extends NodeViewRendererOptions {
     | null;
 }
 
-class SolidNodeView extends NodeView<
+export class SolidNodeView extends NodeView<
   Component,
   Editor,
   SolidNodeViewRendererOptions
@@ -32,7 +32,9 @@ class SolidNodeView extends NodeView<
   setProps!: Setter<Record<string, any>>;
   dispose!: () => void;
 
-  override mount(): void {
+
+  constructor(component: Component, props: NodeViewRendererProps, options?: Partial<SolidNodeViewRendererOptions>) {
+    super(component, props, options);
     createRoot((dispose) => {
       this.dispose = dispose;
       const [props, setProps] = createStore({
