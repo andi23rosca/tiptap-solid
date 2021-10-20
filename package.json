@@ -1,6 +1,6 @@
 {
   "name": "tiptap-solid",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "SolidJS components for tiptap v2",
   "keywords": [
     "solid",
