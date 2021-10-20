@@ -137,3 +137,4 @@ const App: Component = () => {
   return <EditorContent editor={editor()} />;
 };
 ```
+
