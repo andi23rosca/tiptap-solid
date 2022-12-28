@@ -32,8 +32,11 @@ export class SolidNodeView extends NodeView<
   setProps!: Setter<Record<string, any>>;
   dispose!: () => void;
 
-
-  constructor(component: Component, props: NodeViewRendererProps, options?: Partial<SolidNodeViewRendererOptions>) {
+  constructor(
+    component: Component,
+    props: NodeViewRendererProps,
+    options?: Partial<SolidNodeViewRendererOptions>
+  ) {
     super(component, props, options);
     createRoot((dispose) => {
       this.dispose = dispose;
@@ -167,6 +170,10 @@ export function SolidNodeViewRenderer(
   options?: Partial<SolidNodeViewRendererOptions>
 ): NodeViewRenderer {
   return (props: NodeViewRendererProps) => {
-    return new SolidNodeView(component, props, options) as ProseMirrorNodeView;
+    return new SolidNodeView(
+      component,
+      props,
+      options
+    ) as unknown as ProseMirrorNodeView;
   };
 }
