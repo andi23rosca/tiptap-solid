@@ -10,7 +10,11 @@ export const createEditor = (
 
   onMount(() => {
     const instance = new Editor(options);
-    instance.on("transaction", () => setEditor(instance));
+    instance.on("transaction", () => {
+      requestAnimationFrame(() => {
+        setEditor(instance);
+      });
+    });
     onCleanup(() => {
       editor()?.destroy();
     });

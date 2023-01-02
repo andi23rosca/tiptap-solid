@@ -171,6 +171,10 @@ export function SolidNodeViewRenderer(
   options?: Partial<SolidNodeViewRendererOptions>
 ): NodeViewRenderer {
   return (props: NodeViewRendererProps) => {
-    return new SolidNodeView(component, props, options) as ProseMirrorNodeView;
+    return new SolidNodeView(
+      component,
+      props,
+      options
+    ) as unknown as ProseMirrorNodeView;
   };
 }
