@@ -3,9 +3,11 @@ import {
   Component,
   ComponentProps,
   createEffect,
+  getOwner,
   onCleanup,
   splitProps,
 } from "solid-js";
+import { ReactiveOwnerProperty } from "./ReactiveOwner";
 export interface EditorContentProps extends ComponentProps<"div"> {
   editor: Editor | null;
 }
@@ -22,6 +24,7 @@ export const EditorContent: Component<EditorContentProps> = (props) => {
       if (mounted) return;
       mounted = true;
       editorContentRef.append(...editor.options.element.childNodes);
+      (editor as any)[ReactiveOwnerProperty] = getOwner();
       editor.setOptions({
         element: editorContentRef,
       });

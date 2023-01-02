@@ -15,6 +15,7 @@ import {
   SolidNodeViewContext,
   SolidNodeViewContextProps,
 } from "./useSolidNodeView";
+import { ReactiveOwnerProperty } from "./ReactiveOwner";
 
 export interface SolidNodeViewRendererOptions extends NodeViewRendererOptions {
   update:
@@ -32,8 +33,11 @@ export class SolidNodeView extends NodeView<
   setProps!: Setter<Record<string, any>>;
   dispose!: () => void;
 
-
-  constructor(component: Component, props: NodeViewRendererProps, options?: Partial<SolidNodeViewRendererOptions>) {
+  constructor(
+    component: Component,
+    props: NodeViewRendererProps,
+    options?: Partial<SolidNodeViewRendererOptions>
+  ) {
     super(component, props, options);
     createRoot((dispose) => {
       this.dispose = dispose;
@@ -91,7 +95,7 @@ export class SolidNodeView extends NodeView<
       };
 
       insert(this.rootElement, SolidNodeViewProvider(props));
-    });
+    }, (this.editor as any)[ReactiveOwnerProperty]);
   }
 
   get dom() {
