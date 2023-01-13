@@ -1,7 +1,8 @@
 import { Editor } from "@tiptap/core";
-import { Component } from "solid-js";
-import { JSX } from "solid-js/jsx-runtime";
-import { Dynamic } from "solid-js/web";
+import { Component, createRoot } from "solid-js";
+import { createStore } from "solid-js/store";
+import { Dynamic, insert } from "solid-js/web";
+import { ReactiveOwnerProperty } from "./ReactiveOwner";
 
 export interface SolidRendererOptions {
   editor: Editor;
@@ -10,53 +11,45 @@ export interface SolidRendererOptions {
   className?: string;
 }
 
-export class SolidRenderer<P = unknown> {
+export class SolidRenderer<P extends Record<string, any>> {
   id: string;
-
   editor: Editor;
-
-  component: any;
-
   element: Element;
-
-  props: Record<string, any>;
-
-  solidElement: JSX.Element;
+  dispose!: () => void;
+  setProps: any;
 
   constructor(
     component: Component<P>,
-    { editor, props = {}, as = "div", className = "" }: SolidRendererOptions
+    { editor, props, as = "div", className = "" }: SolidRendererOptions
   ) {
     this.id = Math.floor(Math.random() * 0xffffffff).toString();
-    this.component = component;
     this.editor = editor;
-    this.props = props;
     this.element = document.createElement(as);
     this.element.classList.add("solid-renderer");
-
-    if (className) {
-      this.element.classList.add(...className.split(" "));
-    }
-
-    this.render();
+    createRoot((dispose) => {
+      const [reactiveProps, setProps] = createStore<Record<string, any>>(
+        props ?? {}
+      );
+      this.setProps = setProps;
+      if (className) {
+        this.element.classList.add(...className.split(" "));
+      }
+      insert(
+        this.element,
+        <Dynamic component={component} {...(reactiveProps as any)} />
+      );
+      this.dispose = dispose;
+    }, (this.editor as any)[ReactiveOwnerProperty]);
   }
 
-  render(): void {
-    this.solidElement = <Dynamic component={this.component} {...this.props} />;
-
-    (this.editor as any)?.contentComponent?.setRenderer(this.id, this);
+  updateProps(props: P): void {
+    this.setProps({
+      props,
+    });
   }
 
-  updateProps(props: Record<string, any> = {}): void {
-    this.props = {
-      ...this.props,
-      ...props,
-    };
-
-    this.render();
-  }
-
-  destroy(): void {
-    (this.editor as any)?.contentComponent?.removeRenderer(this.id);
+  destroy() {
+    this.dispose();
+    this.element.remove();
   }
 }
