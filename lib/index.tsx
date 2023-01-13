@@ -5,5 +5,6 @@ export * from "./FloatingMenu";
 export * from "./NodeViewContent";
 export * from "./NodeViewRenderer";
 export * from "./NodeViewWrapper";
+export { getTiptapSolidReactiveOwner } from "./ReactiveOwner";
 export * from "./SolidRenderer";
 export * from "./useSolidNodeView";

@@ -1,21 +1,21 @@
 import {
+  Editor,
   NodeView,
   NodeViewRenderer,
-  NodeViewRendererProps,
   NodeViewRendererOptions,
-  Editor,
+  NodeViewRendererProps,
 } from "@tiptap/core";
-import { Decoration, NodeView as ProseMirrorNodeView } from "prosemirror-view";
 import { Node as ProseMirrorNode } from "prosemirror-model";
+import { Decoration, NodeView as ProseMirrorNodeView } from "prosemirror-view";
 import { Component, createRoot, Setter } from "solid-js";
-import { Dynamic, insert } from "solid-js/web";
 import { createStore } from "solid-js/store";
+import { Dynamic, insert } from "solid-js/web";
+import { getTiptapSolidReactiveOwner } from "./ReactiveOwner";
 
 import {
   SolidNodeViewContext,
   SolidNodeViewContextProps,
 } from "./useSolidNodeView";
-import { ReactiveOwnerProperty } from "./ReactiveOwner";
 
 export interface SolidNodeViewRendererOptions extends NodeViewRendererOptions {
   update:
@@ -95,7 +95,7 @@ export class SolidNodeView extends NodeView<
       };
 
       insert(this.rootElement, SolidNodeViewProvider(props));
-    }, (this.editor as any)[ReactiveOwnerProperty]);
+    }, getTiptapSolidReactiveOwner(this.editor));
   }
 
   get dom() {

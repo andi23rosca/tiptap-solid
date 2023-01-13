@@ -2,7 +2,7 @@ import { Editor } from "@tiptap/core";
 import { Component, createRoot } from "solid-js";
 import { createStore } from "solid-js/store";
 import { Dynamic, insert } from "solid-js/web";
-import { ReactiveOwnerProperty } from "./ReactiveOwner";
+import { getTiptapSolidReactiveOwner } from "./ReactiveOwner";
 
 export interface SolidRendererOptions {
   editor: Editor;
@@ -39,7 +39,7 @@ export class SolidRenderer<P extends Record<string, any>> {
         <Dynamic component={component} {...(reactiveProps as any)} />
       );
       this.dispose = dispose;
-    }, (this.editor as any)[ReactiveOwnerProperty]);
+    }, getTiptapSolidReactiveOwner(this.editor));
   }
 
   updateProps(props: P): void {
