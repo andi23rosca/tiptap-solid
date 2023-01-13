@@ -44,7 +44,7 @@ export class SolidRenderer<P extends Record<string, any>> {
 
   updateProps(props: P): void {
     this.setProps({
-      props,
+      ...props,
     });
   }
 
