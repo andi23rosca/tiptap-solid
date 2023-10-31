@@ -22,6 +22,22 @@ yarn add tiptap-solid
 
 For any issues with the editor. You may need to open the issue on [tiptap's repository](https://github.com/ueberdosis/tiptap/issues)
 
+## Issues
+There's a recurring issue caused by prosemirror dependencies: `RangeError: Adding different instances of a keyed plugin (plugin$)`
+These are the steps to fix it:
+1. add all `prosemirror` dependencies explicityly: `yarn add prosemirror-state prosemirror-transform prosemirror-model prosemirror-view`
+2. include the packages in `vite.config.ts` in `optimizeDeps`
+```ts
+  optimizeDeps: {
+    include: [
+      'prosemirror-state',
+      'prosemirror-transform',
+      'prosemirror-model',
+      'prosemirror-view'
+    ]
+  }
+```
+
 ## Usage
 The structure of the helper components has been designed to mimic the React components provided by tiptap, so for further inspiration on how to use `tiptap-solid` see [tiptap's section on React](https://tiptap.dev/guide/node-views/react)
 
