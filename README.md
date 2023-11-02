@@ -2,7 +2,7 @@
 
 > Solid components for tiptap v2
 
-[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/andi23rosca/tiptap-solid)
+[![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20VS%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://open.vscode.dev/andi23rosca/tiptap-solid)
 [![NPM Version](https://badgen.net/npm/v/tiptap-solid)](https://www.npmjs.com/package/tiptap-solid)
 [![Total Downloads](https://badgen.net/npm/dt/tiptap-solid)](https://www.npmjs.com/package/tiptap-solid)
 [![Monthly Downloads](https://badgen.net/npm/dm/tiptap-solid)](https://www.npmjs.com/package/tiptap-solid)
@@ -153,4 +153,47 @@ const App: Component = () => {
   return <EditorContent editor={editor()} />;
 };
 ```
+## Solid Contexts
+`solid` works with the concept of reactivity owners. Any `createEffect`, `useContext`, etc. is tied to the owner it's defined in.
 
+Owners can have children and parents similarly to how components have children and parents, when you try to use a context. 
+Solid will look up the chain of reactivity owners for the closest one that has the context.
+
+The custom node components in `tiptap-solid` are rendered somewhat independently, but the library has some internal logic that automatically attaches the owner of `EditorContent` to any node components rendered inside of it.
+
+The issue is if you need to use contexts inside of the extensions classes. The classes are instantiated and called outside of the usual reactivity tree, and don't have access to any of the contexts.
+
+As a workaround the library exports a function called `getTiptapSolidReactiveOwner` that will return the owner of the `EditorContent` component.
+Using the return with `runWithOwner` will let you have access to any context editor has access to.
+
+Example: 
+```ts
+export default Node.create({
+  name: "solidComponent",
+  group: "block",
+  atom: true,
+  addAttributes() {
+    return {
+      count: {
+        default: 0,
+      },
+    };
+  },
+  parseHTML() {
+    return [
+      {
+        tag: "solid-component",
+      },
+    ];
+  },
+  renderHTML({ HTMLAttributes }) {
+    const owner = getTiptapSolidReactiveOwner(this.editor);
+    const context = runWithOwner(owner, () => useContext(SomeContext));
+    // Do some logic based on the context, render stuff differently, etc.
+    return ["solid-component", mergeAttributes(HTMLAttributes)];
+  },
+  addNodeView() {
+    return SolidNodeViewRenderer(Counter);
+  },
+});
+```
