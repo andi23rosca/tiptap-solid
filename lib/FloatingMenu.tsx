@@ -1,4 +1,4 @@
-import { Component, createEffect, onCleanup } from "solid-js";
+import { Component, ParentComponent, createEffect, onCleanup } from "solid-js";
 import {
   FloatingMenuPlugin,
   FloatingMenuPluginProps,
@@ -13,7 +13,7 @@ export type FloatingMenuProps = Omit<
   class?: string;
 };
 
-export const FloatingMenu: Component<FloatingMenuProps> = (props) => {
+export const FloatingMenu: ParentComponent<FloatingMenuProps> = (props) => {
   let element: HTMLElement | null = null;
 
   createEffect(() => {

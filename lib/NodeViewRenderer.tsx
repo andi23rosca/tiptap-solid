@@ -1,4 +1,5 @@
 import {
+  DecorationWithType,
   Editor,
   NodeView,
   NodeViewRenderer,
@@ -119,7 +120,7 @@ export class SolidNodeView extends NodeView<
     return this.contentElement;
   }
 
-  update(node: ProseMirrorNode, decorations: Decoration[]) {
+  update(node: ProseMirrorNode, decorations: DecorationWithType[]) {
     if (typeof this.options.update === "function") {
       const oldNode = this.node;
       const oldDecorations = this.decorations;

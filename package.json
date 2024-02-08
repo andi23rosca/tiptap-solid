@@ -1,6 +1,6 @@
 {
   "name": "tiptap-solid",
-  "version": "0.1.8",
+  "version": "1.0.0",
   "description": "SolidJS components for tiptap v2",
   "keywords": [
     "solid",
@@ -22,7 +22,7 @@
     "type": "git",
     "url": "https://github.com/andi23rosca/tiptap-solid.git"
   },
-  "author": "Andi Rosca <andi23rosca@gmail.com> (https://godoffrontend.com)",
+  "author": "Andi Rosca <andi23rosca@gmail.com> (https://andi.dev)",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -36,7 +36,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c && tsc"
+    "build": "rollup -c && tsc",
+    "typecheck": "tsc"
   },
   "license": "MIT",
   "private": false,
@@ -46,12 +47,12 @@
     "@rollup/plugin-node-resolve": "^13.0.6",
     "babel-preset-solid": "^1.1.7",
     "rollup": "^2.58.0",
-    "typescript": "^4.4.4"
+    "typescript": "^5.3.0"
   },
   "peerDependencies": {
-    "@tiptap/core": "^2.0.0-beta.125",
-    "@tiptap/extension-bubble-menu": "^2.0.0-beta.42",
-    "@tiptap/extension-floating-menu": "^2.0.0-beta.36",
-    "solid-js": "^1.1.6"
+    "@tiptap/core": "^2.2.2",
+    "@tiptap/extension-bubble-menu": "^2.2.2",
+    "@tiptap/extension-floating-menu": "^2.2.2",
+    "solid-js": "^1.8.0"
   }
 }

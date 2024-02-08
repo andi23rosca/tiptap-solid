@@ -1,4 +1,4 @@
-import { Component, JSX, onMount } from "solid-js";
+import { Component, JSX } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { useSolidNodeView } from "./useSolidNodeView";
 

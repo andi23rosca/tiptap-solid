@@ -1,4 +1,4 @@
-import { Component, createEffect, onCleanup } from "solid-js";
+import { Component, ParentComponent, createEffect, onCleanup } from "solid-js";
 import {
   BubbleMenuPlugin,
   BubbleMenuPluginProps,
@@ -13,7 +13,7 @@ export type BubbleMenuProps = Omit<
   class?: string;
 };
 
-export const BubbleMenu: Component<BubbleMenuProps> = (props) => {
+export const BubbleMenu: ParentComponent<BubbleMenuProps> = (props) => {
   let element: HTMLElement | null = null;
 
   createEffect(() => {

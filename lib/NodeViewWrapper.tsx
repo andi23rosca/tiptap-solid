@@ -1,12 +1,11 @@
-import { Component } from "solid-js";
-import { JSX } from "solid-js/jsx-runtime";
+import { Component, JSXElement } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { useSolidNodeView } from "./useSolidNodeView";
 
 export interface NodeViewWrapperProps {
   [key: string]: any;
   ref?: HTMLDivElement | ((el: HTMLDivElement) => void);
-  as?: Exclude<number, JSX.Element>;
+  as?: Exclude<number, JSXElement>;
 }
 
 export const NodeViewWrapper: Component<NodeViewWrapperProps> = (props) => {
