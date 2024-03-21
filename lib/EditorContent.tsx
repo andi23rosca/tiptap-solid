@@ -1,7 +1,7 @@
-import { Editor } from "@tiptap/core";
+import type { Editor } from "@tiptap/core";
 import {
-  Component,
-  ComponentProps,
+  type Component,
+  type ComponentProps,
   createEffect,
   getOwner,
   onCleanup,
@@ -20,11 +20,10 @@ export const EditorContent: Component<EditorContentProps> = (props) => {
 
   createEffect(() => {
     const { editor } = local;
-    if (editor && editor.options.element) {
+    if (editor?.options.element) {
       if (mounted) return;
       mounted = true;
       editorContentRef.append(...editor.options.element.childNodes);
-      (editor as any)[ReactiveOwnerProperty] = getOwner();
       editor.setOptions({
         element: editorContentRef,
       });
@@ -51,5 +50,12 @@ export const EditorContent: Component<EditorContentProps> = (props) => {
     });
   });
 
-  return <div ref={(e) => (editorContentRef = e)} {...rest} />;
+  return (
+    <div
+      ref={(e) => {
+        editorContentRef = e;
+      }}
+      {...rest}
+    />
+  );
 };
