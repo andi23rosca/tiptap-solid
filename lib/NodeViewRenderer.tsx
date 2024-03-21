@@ -1,27 +1,30 @@
 import {
-  DecorationWithType,
-  Editor,
+  type DecorationWithType,
+  type Editor,
   NodeView,
-  NodeViewRenderer,
-  NodeViewRendererOptions,
-  NodeViewRendererProps,
+  type NodeViewRenderer,
+  type NodeViewRendererOptions,
+  type NodeViewRendererProps,
 } from "@tiptap/core";
-import { Node as ProseMirrorNode } from "prosemirror-model";
-import { Decoration, NodeView as ProseMirrorNodeView } from "prosemirror-view";
-import { Component, createRoot, Setter } from "solid-js";
+import type { Node as ProseMirrorNode } from "prosemirror-model";
+import type {
+  Decoration,
+  NodeView as ProseMirrorNodeView,
+} from "prosemirror-view";
+import { type Component, createRoot, type Setter } from "solid-js";
 import { createStore } from "solid-js/store";
 import { Dynamic, insert } from "solid-js/web";
 import { getTiptapSolidReactiveOwner } from "./ReactiveOwner";
 
 import {
   SolidNodeViewContext,
-  SolidNodeViewContextProps,
+  type SolidNodeViewContextProps,
 } from "./useSolidNodeView";
 
 export interface SolidNodeViewRendererOptions extends NodeViewRendererOptions {
   update:
-    | ((node: ProseMirrorNode, decorations: Decoration[]) => boolean)
-    | null;
+  | ((node: ProseMirrorNode, decorations: Decoration[]) => boolean)
+  | null;
 }
 
 export class SolidNodeView extends NodeView<
@@ -31,13 +34,14 @@ export class SolidNodeView extends NodeView<
 > {
   rootElement!: HTMLElement | null;
   contentElement!: HTMLElement | null;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   setProps!: Setter<Record<string, any>>;
   dispose!: () => void;
 
   constructor(
     component: Component,
     props: NodeViewRendererProps,
-    options?: Partial<SolidNodeViewRendererOptions>
+    options?: Partial<SolidNodeViewRendererOptions>,
   ) {
     super(component, props, options);
     createRoot((dispose) => {
@@ -71,8 +75,9 @@ export class SolidNodeView extends NodeView<
         this.contentElement.style.whiteSpace = "inherit";
       }
 
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       const SolidNodeViewProvider: Component<Record<string, any>> = (
-        componentProps
+        componentProps,
       ) => {
         const onDragStart = this.onDragStart.bind(this);
         const nodeViewContentRef: SolidNodeViewContextProps["nodeViewContentRef"] =
@@ -102,11 +107,11 @@ export class SolidNodeView extends NodeView<
   get dom() {
     if (
       !this.rootElement?.firstElementChild?.hasAttribute(
-        "data-node-view-wrapper"
+        "data-node-view-wrapper",
       )
     ) {
       throw Error(
-        "Please use the NodeViewWrapper component for your node view."
+        "Please use the NodeViewWrapper component for your node view.",
       );
     }
 
@@ -168,14 +173,15 @@ export class SolidNodeView extends NodeView<
 }
 
 export function SolidNodeViewRenderer(
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   component: any,
-  options?: Partial<SolidNodeViewRendererOptions>
+  options?: Partial<SolidNodeViewRendererOptions>,
 ): NodeViewRenderer {
   return (props: NodeViewRendererProps) => {
     return new SolidNodeView(
       component,
       props,
-      options
+      options,
     ) as unknown as ProseMirrorNodeView;
   };
 }

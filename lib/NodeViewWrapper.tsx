@@ -1,11 +1,12 @@
-import { Component, JSXElement } from "solid-js";
+import type { Component, JSXElement, ValidComponent } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { useSolidNodeView } from "./useSolidNodeView";
 
 export interface NodeViewWrapperProps {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   [key: string]: any;
   ref?: HTMLDivElement | ((el: HTMLDivElement) => void);
-  as?: Exclude<number, JSXElement>;
+  as?: ValidComponent;
 }
 
 export const NodeViewWrapper: Component<NodeViewWrapperProps> = (props) => {
