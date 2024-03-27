@@ -63,7 +63,7 @@ const App: Component = () => {
 ```tsx
 import { NodeViewProps } from "@tiptap/core";
 import { Component } from "solid-js";
-import { NodeViewWrapper } from "tiptap-solid";
+import { NodeViewWrapper, NodeViewContent } from "tiptap-solid";
 
 const Counter: Component<NodeViewProps> = (props) => {
   const increase = () => {
@@ -83,6 +83,8 @@ const Counter: Component<NodeViewProps> = (props) => {
           This button has been clicked {props.node.attrs.count} times.
         </button>
       </div>
+
+      <NodeViewContent />
     </NodeViewWrapper>
   );
 };
@@ -99,7 +101,7 @@ import Counter from "./Counter";
 export default Node.create({
   name: "solidComponent",
   group: "block",
-  atom: true,
+  content: 'inline*',
   addAttributes() {
     return {
       count: {
