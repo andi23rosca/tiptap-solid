@@ -1,55 +1,56 @@
-import { Component, ParentComponent, createEffect, onCleanup } from "solid-js";
+import { type ParentComponent, createEffect, onCleanup } from "solid-js";
 import {
-  BubbleMenuPlugin,
-  BubbleMenuPluginProps,
+	BubbleMenuPlugin,
+	type BubbleMenuPluginProps,
 } from "@tiptap/extension-bubble-menu";
 
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
 export type BubbleMenuProps = Omit<
-  Optional<BubbleMenuPluginProps, "pluginKey">,
-  "element"
+	Optional<BubbleMenuPluginProps, "pluginKey">,
+	"element"
 > & {
-  class?: string;
+	class?: string;
 };
 
 export const BubbleMenu: ParentComponent<BubbleMenuProps> = (props) => {
-  let element: HTMLElement | null = null;
+	let element: HTMLElement | null = null;
 
-  createEffect(() => {
-    if (!element) {
-      return;
-    }
+	const stableEditorRef = props.editor;
 
-    const {
-      pluginKey = "bubbleMenu",
-      editor,
-      tippyOptions = {},
-      shouldShow = null,
-    } = props;
+	createEffect(() => {
+		if (!element) {
+			return;
+		}
 
-    editor.registerPlugin(
-      BubbleMenuPlugin({
-        pluginKey,
-        editor,
-        element: element,
-        tippyOptions,
-        shouldShow,
-      })
-    );
+		const pluginKey = props.pluginKey || "bubbleMenu";
+		const tippyOptions = props.tippyOptions || {};
+		const shouldShow = props.shouldShow || null;
 
-    onCleanup(() => {
-      editor.unregisterPlugin(pluginKey);
-    });
-  });
+		stableEditorRef.registerPlugin(
+			BubbleMenuPlugin({
+				pluginKey,
+				editor: stableEditorRef,
+				element: element,
+				tippyOptions,
+				shouldShow,
+			}),
+		);
 
-  return (
-    <div
-      ref={(e) => (element = e)}
-      class={props.class}
-      style={{ visibility: "hidden" }}
-    >
-      {props.children}
-    </div>
-  );
+		onCleanup(() => {
+			stableEditorRef.unregisterPlugin(pluginKey);
+		});
+	});
+
+	return (
+		<div
+			ref={(e) => {
+				element = e;
+			}}
+			class={props.class}
+			style={{ visibility: "hidden" }}
+		>
+			{props.children}
+		</div>
+	);
 };
