@@ -1,4 +1,9 @@
-import { type ParentComponent, createEffect, onCleanup } from "solid-js";
+import {
+	type ParentComponent,
+	createEffect,
+	createSignal,
+	onCleanup,
+} from "solid-js";
 import {
 	BubbleMenuPlugin,
 	type BubbleMenuPluginProps,
@@ -14,11 +19,12 @@ export type BubbleMenuProps = Omit<
 };
 
 export const BubbleMenu: ParentComponent<BubbleMenuProps> = (props) => {
-	let element: HTMLElement | null = null;
+	const [ref, setRef] = createSignal<HTMLDivElement>();
 
 	const stableEditorRef = props.editor;
 
 	createEffect(() => {
+		const element = ref();
 		if (!element) {
 			return;
 		}
@@ -43,13 +49,7 @@ export const BubbleMenu: ParentComponent<BubbleMenuProps> = (props) => {
 	});
 
 	return (
-		<div
-			ref={(e) => {
-				element = e;
-			}}
-			class={props.class}
-			style={{ visibility: "hidden" }}
-		>
+		<div ref={setRef} class={props.class} style={{ visibility: "hidden" }}>
 			{props.children}
 		</div>
 	);
