@@ -133,7 +133,7 @@ export class SolidNodeView extends NodeView<
       this.node = node;
       this.decorations = decorations;
 
-      return this.options.update(oldNode, oldDecorations);
+      return this.options.update(oldNode, oldDecorations  as Decoration[]);
     }
 
     if (node.type !== this.node.type) {

@@ -1,4 +1,4 @@
-import { Editor } from "@tiptap/core";
+import type { Editor } from "@tiptap/core";
 
 export const ReactiveOwnerProperty = Symbol(
   "Reactive owner property used by tiptap solid as a workaround"
