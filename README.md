@@ -145,7 +145,7 @@ const App: Component = () => {
         Editable
       </p>
     </solid-component>
-    
+
     <p>
       Did you see that? That’s a Solid component. We are really living in the future.
     </p>
@@ -158,7 +158,7 @@ const App: Component = () => {
 ## Solid Contexts
 `solid` works with the concept of reactivity owners. Any `createEffect`, `useContext`, etc. is tied to the owner it's defined in.
 
-Owners can have children and parents similarly to how components have children and parents, when you try to use a context. 
+Owners can have children and parents similarly to how components have children and parents, when you try to use a context.
 Solid will look up the chain of reactivity owners for the closest one that has the context.
 
 The custom node components in `tiptap-solid` are rendered somewhat independently, but the library has some internal logic that automatically attaches the owner of `EditorContent` to any node components rendered inside of it.
@@ -168,7 +168,7 @@ The issue is if you need to use contexts inside of the extensions classes. The c
 As a workaround the library exports a function called `getTiptapSolidReactiveOwner` that will return the owner of the `EditorContent` component.
 Using the return with `runWithOwner` will let you have access to any context editor has access to.
 
-Example: 
+Example:
 ```ts
 export default Node.create({
   name: "solidComponent",

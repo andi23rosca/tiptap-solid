@@ -1,62 +1,97 @@
 {
   "name": "tiptap-solid",
-  "version": "1.0.4",
+  "version": "1.1.1",
   "description": "SolidJS components for tiptap v2",
   "keywords": [
-    "solid",
-    "solid-js",
-    "tiptap",
-    "tiptap-solid",
-    "solid-js-tiptap",
-    "tiptap-v2",
-    "prosemirror",
-    "rich-text-editor"
+    "solid"
   ],
-  "sideEffects": false,
   "homepage": "https://github.com/andi23rosca/tiptap-solid",
-  "bugs": {
-    "url": "https://github.com/andi23rosca/tiptap-solid/issues",
-    "email": "andi23rosca+tiptap-solid@gmail.com"
-  },
+  "license": "MIT",
+  "author": "{{me}}",
+  "contributors": [],
   "repository": {
     "type": "git",
-    "url": "https://github.com/andi23rosca/tiptap-solid.git"
+    "url": "git+https://github.com/andi23rosca/tiptap-solid.git"
   },
-  "author": "Andi Rosca <andi23rosca@gmail.com> (https://andi.dev)",
-  "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "solid": "./dist/index.jsx",
-      "default": "./dist/index.js"
-    }
+  "bugs": {
+    "url": "https://github.com/andi23rosca/tiptap-solid/issues"
   },
   "files": [
     "dist"
   ],
-  "scripts": {
-    "build": "tsc && rollup -c",
-    "typecheck": "tsc"
-  },
-  "license": "MIT",
   "private": false,
-  "devDependencies": {
-    "@babel/preset-typescript": "^7.15.0",
-    "@rollup/plugin-babel": "^5.3.0",
-    "@rollup/plugin-node-resolve": "^13.0.6",
-    "babel-preset-solid": "^1.1.7",
-    "prosemirror-model": "^1.25.1",
-    "prosemirror-view": "^1.39.2",
-    "rollup": "^2.58.0",
-    "typescript": "^5.3.0"
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "browser": {},
+  "exports": {
+    "solid": {
+      "development": "./dist/dev.jsx",
+      "import": "./dist/index.jsx"
+    },
+    "development": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/dev.js"
+      }
+    },
+    "import": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "typesVersions": {},
+  "scripts": {
+    "dev": "vite serve dev",
+    "build": "tsup",
+    "test": "concurrently pnpm:test:*",
+    "test:client": "vitest",
+    "test:ssr": "pnpm run test:client --mode ssr",
+    "prepublishOnly": "pnpm build",
+    "format": "prettier --ignore-path .gitignore -w \"src/**/*.{js,ts,json,css,tsx,jsx}\" \"dev/**/*.{js,ts,json,css,tsx,jsx}\"",
+    "lint": "concurrently pnpm:lint:*",
+    "lint:code": "eslint --ignore-path .gitignore --max-warnings 0 src/**/*.{js,ts,tsx,jsx}",
+    "lint:types": "tsc --noEmit",
+    "update-deps": "pnpm up -Li"
   },
   "peerDependencies": {
+    "solid-js": "^1.8.17",
     "@tiptap/core": "^2.2.2",
     "@tiptap/extension-bubble-menu": "^2.2.2",
     "@tiptap/extension-floating-menu": "^2.2.2",
     "prosemirror-model": "^1.25.1",
+    "prosemirror-view": "^1.39.2"
+  },
+  "devDependencies": {
+    "@tiptap/core": "^2.2.2",
+    "@tiptap/extension-bubble-menu": "^2.2.2",
+    "@tiptap/extension-floating-menu": "^2.2.2",
+    "@types/node": "^20.12.12",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
+    "concurrently": "^8.2.2",
+    "esbuild": "^0.21.3",
+    "esbuild-plugin-solid": "^0.6.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-no-only-tests": "^3.1.0",
+    "jsdom": "^24.0.0",
+    "prettier": "3.0.0",
+    "prosemirror-model": "^1.25.1",
     "prosemirror-view": "^1.39.2",
-    "solid-js": "^1.8.0"
+    "solid-js": "^1.8.17",
+    "tsup": "^8.0.2",
+    "tsup-preset-solid": "^2.2.0",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vite-plugin-solid": "^2.10.2",
+    "vitest": "^1.6.0"
+  },
+  "packageManager": "pnpm@9.1.1",
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=9.0.0"
   }
 }
