@@ -1,6 +1,6 @@
 {
   "name": "tiptap-solid",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "SolidJS components for tiptap v2",
   "keywords": [
     "solid"
@@ -22,11 +22,71 @@
   "private": false,
   "sideEffects": false,
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
+  "main": "./dist/server.cjs",
+  "module": "./dist/server.js",
   "types": "./dist/index.d.ts",
-  "browser": {},
+  "browser": {
+    "./dist/server.js": "./dist/index.js",
+    "./dist/server.cjs": "./dist/index.cjs"
+  },
   "exports": {
+    "worker": {
+      "solid": "./dist/server.jsx",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/server.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/server.cjs"
+      }
+    },
+    "browser": {
+      "solid": {
+        "development": "./dist/dev.jsx",
+        "import": "./dist/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/dev.js"
+        },
+        "require": {
+          "types": "./dist/index.d.cts",
+          "default": "./dist/dev.cjs"
+        }
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "deno": {
+      "solid": "./dist/server.jsx",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/server.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/server.cjs"
+      }
+    },
+    "node": {
+      "solid": "./dist/server.jsx",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/server.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/server.cjs"
+      }
+    },
     "solid": {
       "development": "./dist/dev.jsx",
       "import": "./dist/index.jsx"
@@ -35,11 +95,19 @@
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/dev.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/dev.cjs"
       }
     },
     "import": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "require": {
+      "types": "./dist/index.d.cts",
+      "default": "./dist/index.cjs"
     }
   },
   "typesVersions": {},
@@ -57,37 +125,39 @@
     "update-deps": "pnpm up -Li"
   },
   "peerDependencies": {
-    "solid-js": "^1.8.17",
     "@tiptap/core": "^2.2.2",
     "@tiptap/extension-bubble-menu": "^2.2.2",
     "@tiptap/extension-floating-menu": "^2.2.2",
     "prosemirror-model": "^1.25.1",
-    "prosemirror-view": "^1.39.2"
+    "prosemirror-view": "^1.39.2",
+    "solid-js": "^1.8.17"
   },
   "devDependencies": {
-    "@tiptap/core": "^2.2.2",
-    "@tiptap/extension-bubble-menu": "^2.2.2",
-    "@tiptap/extension-floating-menu": "^2.2.2",
-    "@types/node": "^20.12.12",
-    "@typescript-eslint/eslint-plugin": "^7.9.0",
-    "@typescript-eslint/parser": "^7.9.0",
+    "@tiptap/core": "^2.12.0",
+    "@tiptap/extension-bubble-menu": "^2.12.0",
+    "@tiptap/extension-floating-menu": "^2.12.0",
+    "@tiptap/starter-kit": "^2.12.0",
+    "@types/node": "^20.17.45",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
     "concurrently": "^8.2.2",
-    "esbuild": "^0.21.3",
+    "esbuild": "^0.21.5",
     "esbuild-plugin-solid": "^0.6.0",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.1",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-no-only-tests": "^3.1.0",
-    "jsdom": "^24.0.0",
+    "eslint-plugin-no-only-tests": "^3.3.0",
+    "jsdom": "^24.1.3",
     "prettier": "3.0.0",
     "prosemirror-model": "^1.25.1",
     "prosemirror-view": "^1.39.2",
-    "solid-js": "^1.8.17",
-    "tsup": "^8.0.2",
+    "sass": "^1.87.0",
+    "solid-js": "^1.9.6",
+    "tsup": "^8.4.0",
     "tsup-preset-solid": "^2.2.0",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.11",
-    "vite-plugin-solid": "^2.10.2",
-    "vitest": "^1.6.0"
+    "typescript": "^5.8.3",
+    "vite": "^5.4.19",
+    "vite-plugin-solid": "^2.11.6",
+    "vitest": "^1.6.1"
   },
   "packageManager": "pnpm@9.1.1",
   "engines": {

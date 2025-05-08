@@ -3,11 +3,9 @@ import {
   type Component,
   type ComponentProps,
   createEffect,
-  getOwner,
   onCleanup,
   splitProps,
 } from "solid-js";
-import { ReactiveOwnerProperty } from "./ReactiveOwner";
 export interface EditorContentProps extends ComponentProps<"div"> {
   editor: Editor | null;
 }
@@ -15,7 +13,7 @@ export interface EditorContentProps extends ComponentProps<"div"> {
 export const EditorContent: Component<EditorContentProps> = (props) => {
   const [local, rest] = splitProps(props, ["editor"]);
 
-  let editorContentRef: HTMLElement;
+  let editorContentRef!: HTMLDivElement;
   let mounted = false;
 
   createEffect(() => {
@@ -52,9 +50,7 @@ export const EditorContent: Component<EditorContentProps> = (props) => {
 
   return (
     <div
-      ref={(e) => {
-        editorContentRef = e;
-      }}
+      ref={editorContentRef}
       {...rest}
     />
   );
