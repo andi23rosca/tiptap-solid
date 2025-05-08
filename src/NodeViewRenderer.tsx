@@ -6,11 +6,11 @@ import {
   type NodeViewRendererOptions,
   type NodeViewRendererProps,
 } from "@tiptap/core";
-import type { Node as ProseMirrorNode } from "prosemirror-model";
+import type { Node as ProseMirrorNode } from "@tiptap/pm/model";
 import type {
   Decoration,
   NodeView as ProseMirrorNodeView,
-} from "prosemirror-view";
+} from "@tiptap/pm/view";
 import { type Component, createRoot, type Setter } from "solid-js";
 import { createStore } from "solid-js/store";
 import { Dynamic, insert } from "solid-js/web";
